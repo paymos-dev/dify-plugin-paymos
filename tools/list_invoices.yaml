@@ -1,0 +1,80 @@
+identity:
+  name: list_invoices
+  author: paymos-dev
+  label:
+    en_US: List Invoices
+description:
+  human:
+    en_US: List Paymos invoices with optional project, status, order ID, creation window, and keyset cursor pagination filters.
+  llm: List Paymos invoices (GET /v1/invoices) with optional filters and cursor pagination.
+parameters:
+  - name: project_id
+    type: string
+    required: false
+    label:
+      en_US: Project ID
+    human_description:
+      en_US: Optional project ID filter (prj_...).
+    llm_description: Optional Paymos project ID filter (prj_...).
+    form: llm
+  - name: status
+    type: string
+    required: false
+    label:
+      en_US: Status
+    human_description:
+      en_US: Optional invoice status filter (awaiting_client, awaiting_payment, confirming, underpaid_waiting, paid, paid_over, underpaid, expired, cancelled). Comma-separated values are supported.
+    llm_description: Optional invoice status or comma-separated list of statuses (awaiting_client, awaiting_payment, confirming, underpaid_waiting, paid, paid_over, underpaid, expired, cancelled).
+    form: llm
+  - name: external_order_id
+    type: string
+    required: false
+    label:
+      en_US: External Order ID
+    human_description:
+      en_US: Optional merchant external_order_id filter.
+    llm_description: Optional merchant external_order_id filter.
+    form: llm
+  - name: created_from
+    type: number
+    required: false
+    min: 0
+    label:
+      en_US: Created From (Unix Timestamp)
+    human_description:
+      en_US: Optional lower bound for invoice creation time as Unix timestamp in seconds.
+    llm_description: Optional start of creation time window as Unix seconds.
+    form: llm
+  - name: created_to
+    type: number
+    required: false
+    min: 0
+    label:
+      en_US: Created To (Unix Timestamp)
+    human_description:
+      en_US: Optional upper bound for invoice creation time as Unix timestamp in seconds.
+    llm_description: Optional end of creation time window as Unix seconds.
+    form: llm
+  - name: limit
+    type: number
+    required: false
+    min: 1
+    max: 100
+    label:
+      en_US: Limit
+    human_description:
+      en_US: Maximum number of invoices to return per page (1–100).
+    llm_description: Page size between 1 and 100.
+    form: llm
+  - name: cursor
+    type: string
+    required: false
+    label:
+      en_US: Pagination Cursor
+    human_description:
+      en_US: Optional next_cursor token from a previous list_invoices response.
+    llm_description: Optional keyset pagination cursor from a previous list_invoices call.
+    form: llm
+extra:
+  python:
+    source: tools/list_invoices.py

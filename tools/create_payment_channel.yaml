@@ -1,0 +1,31 @@
+identity:
+  name: create_payment_channel
+  author: paymos-dev
+  label:
+    en_US: Create Payment Channel
+description:
+  human:
+    en_US: Create or fetch an idempotent customer Payment Channel with permanent non-expiring deposit addresses per enabled network.
+  llm: Create or retrieve a Paymos Payment Channel (POST /v1/payment-channels) for a customer external_id within a project. Safe to call repeatedly (idempotent).
+parameters:
+  - name: project_id
+    type: string
+    required: true
+    label:
+      en_US: Project ID
+    human_description:
+      en_US: Prefixed Paymos project identifier (prj_...).
+    llm_description: Prefixed Paymos project ID (prj_...).
+    form: llm
+  - name: external_id
+    type: string
+    required: true
+    label:
+      en_US: External Customer ID
+    human_description:
+      en_US: Your unique customer or account identifier within the project.
+    llm_description: Merchant unique customer identifier within the project.
+    form: llm
+extra:
+  python:
+    source: tools/create_payment_channel.py

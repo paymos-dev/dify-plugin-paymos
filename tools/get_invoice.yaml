@@ -1,0 +1,22 @@
+identity:
+  name: get_invoice
+  author: paymos-dev
+  label:
+    en_US: Get Invoice
+description:
+  human:
+    en_US: Retrieve the current status, checkout payment_url, and payment transfer details of a Paymos invoice.
+  llm: Fetch a single Paymos invoice by invoice_id (GET /v1/invoices/{invoice_id}).
+parameters:
+  - name: invoice_id
+    type: string
+    required: true
+    label:
+      en_US: Invoice ID
+    human_description:
+      en_US: Paymos invoice identifier (inv_...).
+    llm_description: Paymos invoice ID (e.g. inv_...).
+    form: llm
+extra:
+  python:
+    source: tools/get_invoice.py

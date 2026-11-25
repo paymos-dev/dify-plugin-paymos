@@ -1,0 +1,31 @@
+identity:
+  name: cancel_invoice
+  author: paymos-dev
+  label:
+    en_US: Cancel Invoice
+description:
+  human:
+    en_US: Cancel an active Paymos invoice with a mandatory reason (1–500 characters).
+  llm: Cancel an open Paymos invoice (POST /v1/invoices/{invoice_id}/cancel). Requires a non-empty reason up to 500 characters.
+parameters:
+  - name: invoice_id
+    type: string
+    required: true
+    label:
+      en_US: Invoice ID
+    human_description:
+      en_US: Paymos invoice identifier (inv_...) to cancel.
+    llm_description: Paymos invoice ID (inv_...) to cancel.
+    form: llm
+  - name: reason
+    type: string
+    required: true
+    label:
+      en_US: Cancellation Reason
+    human_description:
+      en_US: Required reason for cancelling the invoice (1–500 characters).
+    llm_description: Non-empty cancellation reason (1 to 500 characters).
+    form: llm
+extra:
+  python:
+    source: tools/cancel_invoice.py

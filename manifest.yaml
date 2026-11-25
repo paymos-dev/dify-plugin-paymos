@@ -1,0 +1,35 @@
+version: 0.1.0
+type: plugin
+author: paymos-dev
+name: paymos
+description:
+  en_US: Accept stablecoin (USDT, USDC, USD1, DAI) and gold-backed XAUT payments via the Paymos Payment API — create and manage invoices, permanent payment channels, sandbox simulations, and refunds.
+icon: icon.svg
+label:
+  en_US: Paymos
+created_at: "2026-04-01T00:00:00Z"
+resource:
+  memory: 268435456
+plugins:
+  tools:
+    - provider/paymos.yaml
+meta:
+  version: 0.0.1
+  arch:
+    - amd64
+    - arm64
+  runner:
+    language: python
+    version: "3.12"
+    entrypoint: main
+  minimum_dify_version: "1.0.0"
+tags:
+  - finance
+  - business
+privacy: PRIVACY.md
+repo: https://github.com/paymos-dev/dify-plugin-paymos
+contact: support@paymos.io
+network:
+  domains:
+    - api.paymos.io
+verified: false

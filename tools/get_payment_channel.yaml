@@ -1,0 +1,22 @@
+identity:
+  name: get_payment_channel
+  author: paymos-dev
+  label:
+    en_US: Get Payment Channel
+description:
+  human:
+    en_US: Fetch a Paymos Payment Channel's status and provisioned permanent deposit addresses across networks.
+  llm: Retrieve a Paymos Payment Channel by channel_id (GET /v1/payment-channels/{channel_id}).
+parameters:
+  - name: channel_id
+    type: string
+    required: true
+    label:
+      en_US: Payment Channel ID
+    human_description:
+      en_US: Paymos payment channel identifier (pch_...).
+    llm_description: Paymos Payment Channel ID (pch_...).
+    form: llm
+extra:
+  python:
+    source: tools/get_payment_channel.py

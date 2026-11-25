@@ -1,0 +1,47 @@
+identity:
+  name: create_refund
+  author: paymos-dev
+  label:
+    en_US: Create Refund
+description:
+  human:
+    en_US: Issue a server-calculated full or overpayment refund to the original sender of a paid Paymos invoice.
+  llm: Create a Paymos invoice refund (POST /v1/refunds). Strictly accepts only invoice_id, mode (full or overpayment), and external_order_id. Amount, currency, network, and destination address are server-calculated and must never be provided.
+parameters:
+  - name: invoice_id
+    type: string
+    required: true
+    label:
+      en_US: Invoice ID
+    human_description:
+      en_US: Paid or overpaid Paymos invoice identifier (inv_...) to refund.
+    llm_description: Paid or overpaid Paymos invoice ID (inv_...).
+    form: llm
+  - name: mode
+    type: select
+    required: true
+    label:
+      en_US: Refund Mode
+    human_description:
+      en_US: Server-calculated refund mode (full refund or overpayment refund only).
+    llm_description: Refund mode — strictly either "full" or "overpayment".
+    form: llm
+    options:
+      - value: full
+        label:
+          en_US: Full Refund
+      - value: overpayment
+        label:
+          en_US: Overpayment Refund
+  - name: external_order_id
+    type: string
+    required: true
+    label:
+      en_US: External Order ID
+    human_description:
+      en_US: Unique merchant refund order ID for idempotency.
+    llm_description: Unique merchant refund order ID for idempotency.
+    form: llm
+extra:
+  python:
+    source: tools/create_refund.py

@@ -1,0 +1,44 @@
+identity:
+  name: simulate_sandbox_invoice
+  author: paymos-dev
+  label:
+    en_US: Simulate Sandbox Invoice
+description:
+  human:
+    en_US: Simulate a payment outcome (paid, overpaid, underpay, or cancel) on a Sandbox invoice. Requires a pk_test_ Payment API key.
+  llm: Simulate a Sandbox invoice payment outcome (POST /v1/sandbox/invoices/{invoice_id}/simulate-payment) with stage paid, overpaid, underpay, or cancel. Strictly requires a pk_test_ Sandbox key.
+parameters:
+  - name: invoice_id
+    type: string
+    required: true
+    label:
+      en_US: Invoice ID
+    human_description:
+      en_US: Sandbox Paymos invoice identifier (inv_...).
+    llm_description: Sandbox Paymos invoice ID (inv_...).
+    form: llm
+  - name: stage
+    type: select
+    required: true
+    label:
+      en_US: Simulation Stage
+    human_description:
+      en_US: Sandbox payment stage to simulate.
+    llm_description: Target sandbox payment stage (paid, overpaid, underpay, or cancel).
+    form: llm
+    options:
+      - value: paid
+        label:
+          en_US: Paid
+      - value: overpaid
+        label:
+          en_US: Overpaid
+      - value: underpay
+        label:
+          en_US: Underpay
+      - value: cancel
+        label:
+          en_US: Cancel
+extra:
+  python:
+    source: tools/simulate_sandbox_invoice.py

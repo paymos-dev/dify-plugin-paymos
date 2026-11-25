@@ -1,0 +1,78 @@
+identity:
+  name: create_invoice
+  author: paymos-dev
+  label:
+    en_US: Create Invoice
+description:
+  human:
+    en_US: Create an idempotent Paymos payment invoice priced in fiat (45 currencies) or supported crypto assets (USDT, USDC, USD1, DAI, XAUT) and receive the hosted checkout URL.
+  llm: Create a Paymos payment invoice (POST /v1/invoices) and return its payment_url and invoice details. Amount must be an exact decimal string. external_order_id is unique per project and must not start with wgt_. Do not pass ttl.
+parameters:
+  - name: project_id
+    type: string
+    required: true
+    label:
+      en_US: Project ID
+    human_description:
+      en_US: Prefixed Paymos project identifier (prj_...) that receives the invoice.
+    llm_description: Prefixed Paymos project identifier (e.g. prj_...).
+    form: llm
+  - name: amount
+    type: string
+    required: true
+    label:
+      en_US: Amount
+    human_description:
+      en_US: Payment amount as an exact decimal string (e.g. "50.00").
+    llm_description: Payment amount formatted as a decimal string (e.g. "50.00").
+    form: llm
+  - name: currency
+    type: string
+    required: true
+    label:
+      en_US: Currency
+    human_description:
+      en_US: Fiat currency code (USD, EUR, ...) or supported crypto asset symbol (USDT, USDC, USD1, DAI, XAUT).
+    llm_description: Fiat currency code (e.g. USD, EUR) or supported crypto asset symbol (USDT, USDC, USD1, DAI, XAUT).
+    form: llm
+  - name: external_order_id
+    type: string
+    required: true
+    label:
+      en_US: External Order ID
+    human_description:
+      en_US: Your unique order ID for idempotency (max 128 chars; must not start with wgt_).
+    llm_description: Merchant unique order ID for idempotency (max 128 chars; must not start with wgt_).
+    form: llm
+  - name: network
+    type: string
+    required: false
+    label:
+      en_US: Network
+    human_description:
+      en_US: Optional deposit network code (TRC20, ERC20, BEP20, POLYGON, ARBITRUM, OPTIMISM, BASE, TON, AVAX, SOL, NEAR, SUI, PLASMA) to lock a crypto invoice to one network.
+    llm_description: Optional blockchain network code (TRC20, ERC20, BEP20, POLYGON, ARBITRUM, OPTIMISM, BASE, TON, AVAX, SOL, NEAR, SUI, PLASMA).
+    form: llm
+  - name: customer_fee_percent
+    type: number
+    required: false
+    min: 0
+    max: 100
+    label:
+      en_US: Customer Fee Percent
+    human_description:
+      en_US: Optional integer (0–100) overriding the project setting for the percentage of the Paymos processing fee passed to the payer.
+    llm_description: Optional integer between 0 and 100 indicating the percentage of the Paymos processing fee paid by the customer.
+    form: llm
+  - name: client_id
+    type: string
+    required: false
+    label:
+      en_US: Client ID
+    human_description:
+      en_US: Optional merchant customer identifier (max 200 chars) stored on the invoice.
+    llm_description: Optional merchant customer identifier (max 200 chars).
+    form: llm
+extra:
+  python:
+    source: tools/create_invoice.py

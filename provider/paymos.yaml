@@ -1,0 +1,54 @@
+identity:
+  author: paymos-dev
+  name: paymos
+  label:
+    en_US: Paymos
+  description:
+    en_US: Accept stablecoin (USDT, USDC, USD1, DAI) and gold-backed XAUT payments via the Paymos Payment API. Manage invoices, permanent payment channels, sandbox simulations, and refunds.
+  icon: icon.svg
+  tags:
+    - finance
+    - business
+credentials_for_provider:
+  public_key:
+    type: text-input
+    required: true
+    label:
+      en_US: Payment API Public Key
+    placeholder:
+      en_US: pk_live_... or pk_test_...
+    help:
+      en_US: Your Paymos Payment API public key from Dashboard → Developer → API Keys. Use pk_live_ for Production or pk_test_ for Sandbox. Payout keys (rk_) are not supported.
+    url: https://app.paymos.io
+  secret_key:
+    type: secret-input
+    required: true
+    label:
+      en_US: Payment API Secret Key
+    placeholder:
+      en_US: Enter your Paymos Payment API secret key
+    help:
+      en_US: Secret key paired with your Payment API public key, used to sign requests with HMAC-SHA256.
+    url: https://app.paymos.io
+  base_url:
+    type: text-input
+    required: false
+    default: https://api.paymos.io
+    label:
+      en_US: API Base URL
+    placeholder:
+      en_US: https://api.paymos.io
+    help:
+      en_US: Optional Paymos API base URL (must use HTTPS). Defaults to https://api.paymos.io.
+tools:
+  - tools/create_invoice.yaml
+  - tools/get_invoice.yaml
+  - tools/list_invoices.yaml
+  - tools/cancel_invoice.yaml
+  - tools/simulate_sandbox_invoice.yaml
+  - tools/create_payment_channel.yaml
+  - tools/get_payment_channel.yaml
+  - tools/create_refund.yaml
+extra:
+  python:
+    source: provider/paymos.py
